@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Marcelo Callegaro Portfolio</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Pinyon+Script&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Utilitários de Scrollbar */
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+    .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+    }
+
+    /* Animação de Fade In */
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+
+    /* Seleção de texto */
+    ::selection {
+      background-color: white;
+      color: black;
+    }
+
+    /* Quebra de palavra forçada para títulos longos em mobile */
+    .break-word-mobile {
+      word-break: break-word;
+      hyphens: auto;
+    }
+
+    /* Mobile Overlay Transition */
+    #mobile-overlay {
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.4s ease, visibility 0.4s ease;
+    }
+    #mobile-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    /* Previne scroll quando menu está aberto */
+    body.menu-open {
+      overflow: hidden;
+    }
+  </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/"
+  }
+}
+</script>
+</head>
+<body class="bg-black text-white selection:bg-white selection:text-black flex flex-col min-h-screen">
+
+  <!-- HEADER (Main) -->
+  <header class="fixed top-0 left-0 w-full h-28 bg-black z-40 border-b border-white/10">
+    <div class="w-full max-w-[1400px] mx-auto h-full px-8 md:px-16 lg:px-24 flex items-center justify-between text-white">
+      <!-- Logo / Wordmark -->
+      <div onclick="navigateTo('home')" class="cursor-pointer block relative z-50">
+        <img 
+          src="MarceloLogo.png" 
+          alt="Marcelo Callegaro" 
+          class="h-20 md:h-24 w-auto object-contain select-none relative top-1 md:top-0"
+        />
+      </div>
+
+      <!-- Desktop Navigation -->
+      <nav class="hidden md:flex items-center gap-8 text-sm tracking-[0.2em] uppercase font-light" id="desktop-nav">
+        <!-- Injected via JS -->
+      </nav>
+
+      <!-- Mobile Hamburger Button -->
+      <button class="md:hidden text-white p-2 focus:outline-none z-50" onclick="toggleMobileMenu()">
+        <!-- Hamburger Icon -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- MOBILE FULLSCREEN OVERLAY -->
+  <div id="mobile-overlay" class="fixed inset-0 bg-black z-50 flex flex-col">
+    <!-- Overlay Header (Matches Main Header Layout) -->
+    <div class="w-full h-28 px-8 flex items-center justify-between border-b border-white/10 shrink-0">
+      <!-- Logo in Overlay (Keeps position continuity) -->
+      <div onclick="closeMenuAndNavigate('home')" class="cursor-pointer block">
+        <img 
+          src="MarceloLogo.png" 
+          alt="Marcelo Callegaro" 
+          class="h-20 w-auto object-contain select-none mt-2"
+        />
+      </div>
+      <!-- Close Button (X) -->
+      <button class="text-white p-2 focus:outline-none" onclick="toggleMobileMenu()">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+
+    <!-- Mobile Links -->
+    <nav class="flex flex-col items-center justify-center flex-grow gap-8">
+       <button onclick="closeMenuAndNavigate('about')" class="text-3xl font-light tracking-[0.2em] uppercase hover:text-gray-400 transition-colors">
+         About
+       </button>
+       <button onclick="closeMenuAndSetCategory('Theatre')" class="text-3xl font-light tracking-[0.2em] uppercase hover:text-gray-400 transition-colors">
+         Theatre
+       </button>
+       <button onclick="closeMenuAndSetCategory('Photography')" class="text-3xl font-light tracking-[0.2em] uppercase hover:text-gray-400 transition-colors">
+         Photography
+       </button>
+       <button onclick="closeMenuAndSetCategory('Performance')" class="text-3xl font-light tracking-[0.2em] uppercase hover:text-gray-400 transition-colors">
+         Performance
+       </button>
+       <a href="mailto:mlcallegaro@gmail.com" class="text-3xl font-light tracking-[0.2em] uppercase hover:text-gray-400 transition-colors mt-8 text-white/60">
+         Contact
+       </a>
+    </nav>
+  </div>
+
+  <!-- MAIN CONTENT AREA -->
+  <main id="app-root" class="w-full flex-grow">
+    <!-- Content injected via JS -->
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="w-full bg-black border-t border-white/10 mt-auto">
+    <div class="max-w-[1400px] mx-auto w-full py-8 md:py-8 px-8 md:px-16 lg:px-24 flex flex-col md:flex-row items-center justify-between text-[10px] md:text-xs tracking-widest uppercase text-white/60">
+      
+      <!-- Desktop: Name (Hidden on Mobile) -->
+      <div class="hidden md:block">
+        <span>Marcelo Lopes Callegaro</span>
+      </div>
+      
+      <!-- Desktop: Text Links (Hidden on Mobile) -->
+      <div class="hidden md:flex gap-8">
+        <a href="#" onclick="navigateTo('about'); return false;" class="hover:text-white transition-colors">About</a>
+        <a href="mailto:mlcallegaro@gmail.com" class="hover:text-white transition-colors">Contact</a>
+        <a href="#" class="hover:text-white transition-colors">Instagram</a>
+      </div>
+
+      <!-- Mobile: Icons Only (Hidden on Desktop) -->
+      <div class="flex md:hidden gap-12 items-center justify-center w-full">
+        <!-- Instagram Icon -->
+        <a href="#" class="text-white hover:opacity-70 transition-opacity">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+        <!-- Mail Icon -->
+        <a href="mailto:mlcallegaro@gmail.com" class="text-white hover:opacity-70 transition-opacity">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+            <polyline points="22,6 12,13 2,6"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <!-- Desktop: Email Text (Hidden on Mobile) -->
+      <div class="hidden md:block">
+        <a href="mailto:mlcallegaro@gmail.com" class="hover:text-white transition-colors">mlcallegaro@gmail.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    // --- DATA ---
+    const PROJECTS = [
+      {
+        id: '1', title: 'THE PUBLIC (El Público)', category: 'Theatre', year: '2008',
+        description: 'An experimental adaptation of Tennessee Williams’ classic, exploring the fragility of memory through fragmented staging and digital projection mapping.',
+        team: ['Director: Marcelo Callegaro', 'Lighting: Ana Silva', 'Set Design: Lucas M.', 'Sound: Studio Echo'],
+        coverImage: 'opublico02.jpg',
+        gallery: ['opublico01.jpg', 'https://picsum.photos/1200/800?random=12', 'https://picsum.photos/1200/1600?random=13']
+      },
+      {
+        id: '2', title: 'DEAD AIR', category: 'Theatre', year: '2023',
+        description: 'A photographic series documenting the silence of metropolitan spaces during the early hours of dawn, capturing the architectural skeleton of the city.',
+        team: ['Photography: Marcelo Callegaro', 'Curator: Elena R.', 'Print: ArtLab'],
+        coverImage: 'deadair01.jpg',
+        gallery: ['deadair02.jpg', 'deadair03.jpg', 'deadair04.jpg', 'deadair05.jpg']
+      },
+      {
+        id: '3', title: 'SWINE', category: 'Performance', year: '2024',
+        description: 'A duration performance piece investigating the relationship between physical endurance and auditory feedback loops.',
+        team: ['Performer: Marcelo Callegaro', 'Sound Engineer: David K.', 'Costume: V. Apparel'],
+        coverImage: 'SwineGrid.jpg',
+        gallery: ['https://picsum.photos/1200/1600?random=31', 'https://picsum.photos/1200/1600?random=32']
+      },
+      {
+        id: '4', title: 'MACBETH: REWIRED', category: 'Theatre', year: '2021',
+        description: 'A cyber-noir reinterpretation of Macbeth set in a dystopian future, utilizing live-feed cameras and industrial soundscapes.',
+        team: ['Director: Marcelo Callegaro', 'Tech Lead: Sarah J.', 'Dramaturgy: Paul O.'],
+        coverImage: 'https://picsum.photos/800/1000?random=4',
+        gallery: ['https://picsum.photos/1200/800?random=41', 'https://picsum.photos/1200/1600?random=42']
+      },
+      {
+        id: '5', title: 'RAW TEXTURES', category: 'Photography', year: '2023',
+        description: 'Close-up studies of organic and synthetic surfaces, blurring the line between the natural and the manufactured.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=5',
+        gallery: ['https://picsum.photos/1200/1600?random=51', 'https://picsum.photos/1200/1600?random=52']
+      },
+      {
+        id: '6', title: 'STATIC MOTION', category: 'Performance', year: '2020',
+        description: 'A collaborative piece exploring stillness within chaotic environments.',
+        team: ['Concept: Marcelo Callegaro', 'Dancers: The Collective'],
+        coverImage: 'https://picsum.photos/800/1000?random=6',
+        gallery: ['https://picsum.photos/1200/1600?random=61']
+      },
+      {
+        id: '7', title: 'CONCRETE DREAMS', category: 'Photography', year: '2021',
+        description: 'Exploring brutalist architecture in São Paulo.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=7',
+        gallery: ['https://picsum.photos/1200/1600?random=71']
+      },
+      {
+        id: '8', title: 'WOYZECK', category: 'Theatre', year: '2019',
+        description: 'A raw, minimalist staging of Büchner’s unfinished play.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=8',
+        gallery: ['https://picsum.photos/1200/1600?random=81']
+      },
+      {
+        id: '9', title: 'BODY / ARCHIVE', category: 'Performance', year: '2022',
+        description: 'Using the body as a living archive of trauma and memory.',
+        team: ['Performer: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=9',
+        gallery: ['https://picsum.photos/1200/1600?random=91']
+      },
+      {
+        id: '10', title: 'NOCTURNAL', category: 'Photography', year: '2023',
+        description: 'Low light photography series.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=10',
+        gallery: ['https://picsum.photos/1200/1600?random=101']
+      },
+      {
+        id: '11', title: 'THE SEAGULL', category: 'Theatre', year: '2018',
+        description: 'Chekhov adaptation focusing on the meta-theatrical elements.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=11',
+        gallery: ['https://picsum.photos/1200/1600?random=111']
+      },
+      {
+        id: '12', title: 'PHASE SHIFT', category: 'Performance', year: '2021',
+        description: 'Audiovisual performance exploring digital latency.',
+        team: ['Concept: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=12',
+        gallery: ['https://picsum.photos/1200/1600?random=121']
+      },
+      {
+        id: '13', title: 'MONOCHROME', category: 'Photography', year: '2020',
+        description: 'Study of shades of grey in industrial settings.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=13',
+        gallery: ['https://picsum.photos/1200/1600?random=131']
+      },
+      {
+        id: '14', title: 'WAITING FOR GODOT', category: 'Theatre', year: '2020',
+        description: 'A lockdown-inspired remote performance.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=14',
+        gallery: ['https://picsum.photos/1200/1600?random=141']
+      },
+      {
+        id: '15', title: 'RITUAL I', category: 'Performance', year: '2019',
+        description: 'First in a series of ritualistic endurance pieces.',
+        team: ['Performer: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=15',
+        gallery: ['https://picsum.photos/1200/1600?random=151']
+      },
+      {
+        id: '16', title: 'ABSTRACT REALISM', category: 'Photography', year: '2024',
+        description: 'Macro photography of everyday objects.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=16',
+        gallery: ['https://picsum.photos/1200/1600?random=161']
+      },
+      {
+        id: '17', title: 'HAMLET MACHINE', category: 'Theatre', year: '2017',
+        description: 'Post-dramatic theatre piece based on Heiner Müller.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=17',
+        gallery: ['https://picsum.photos/1200/1600?random=171']
+      },
+      {
+        id: '18', title: 'SILENT NOISE', category: 'Performance', year: '2023',
+        description: 'Investigating the noise pollution through silence.',
+        team: ['Concept: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=18',
+        gallery: ['https://picsum.photos/1200/1600?random=181']
+      },
+      {
+        id: '19', title: 'LIGHT LEAKS', category: 'Photography', year: '2021',
+        description: 'Experimental film photography.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=19',
+        gallery: ['https://picsum.photos/1200/1600?random=191']
+      },
+      {
+        id: '20', title: 'ANTIGONE', category: 'Theatre', year: '2022',
+        description: 'A modern political take on the Greek tragedy.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=20',
+        gallery: ['https://picsum.photos/1200/1600?random=201']
+      },
+      {
+        id: '21', title: 'ZERO POINT', category: 'Performance', year: '2024',
+        description: 'The moment before movement begins.',
+        team: ['Performer: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=21',
+        gallery: ['https://picsum.photos/1200/1600?random=211']
+      },
+      {
+        id: '22', title: 'FLUX STATE', category: 'Performance', year: '2023',
+        description: 'A continuous movement piece exploring the state of flux.',
+        team: ['Performer: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=22',
+        gallery: ['https://picsum.photos/1200/1600?random=221']
+      },
+      {
+        id: '23', title: 'URBAN FOSSILS', category: 'Photography', year: '2021',
+        description: 'Documenting the decay of modern infrastructure.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=23',
+        gallery: ['https://picsum.photos/1200/1600?random=231']
+      },
+      {
+        id: '24', title: 'SIX CHARACTERS', category: 'Theatre', year: '2019',
+        description: 'Pirandello adaptation focused on identity.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=24',
+        gallery: ['https://picsum.photos/1200/1600?random=241']
+      },
+      {
+        id: '25', title: 'VOID SCULPTURES', category: 'Photography', year: '2022',
+        description: 'Capturing negative space in sculpture.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=25',
+        gallery: ['https://picsum.photos/1200/1600?random=251']
+      },
+      {
+        id: '26', title: 'BREATH CYCLE', category: 'Performance', year: '2024',
+        description: 'Performance centered on breathing rhythms.',
+        team: ['Performer: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=26',
+        gallery: ['https://picsum.photos/1200/1600?random=261']
+      },
+      {
+        id: '27', title: 'SHADOW PLAY', category: 'Theatre', year: '2020',
+        description: 'Minimalist theatre using only shadow and light.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=27',
+        gallery: ['https://picsum.photos/1200/1600?random=271']
+      },
+      {
+        id: '28', title: 'NIGHT WALK', category: 'Photography', year: '2023',
+        description: 'Night photography in the outskirts.',
+        team: ['Photography: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=28',
+        gallery: ['https://picsum.photos/1200/1600?random=281']
+      },
+      {
+        id: '29', title: 'MEDEA', category: 'Theatre', year: '2018',
+        description: 'A visceral retelling of the myth.',
+        team: ['Director: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=29',
+        gallery: ['https://picsum.photos/1200/1600?random=291']
+      },
+      {
+        id: '30', title: 'RESISTANCE', category: 'Performance', year: '2021',
+        description: 'Endurance art piece lasting 24 hours.',
+        team: ['Performer: Marcelo Callegaro'],
+        coverImage: 'https://picsum.photos/800/1000?random=30',
+        gallery: ['https://picsum.photos/1200/1600?random=301']
+      }
+    ];
+
+    // --- STATE ---
+    let state = {
+      view: 'home', // 'home', 'project', 'about'
+      category: 'All', // 'All', 'Theatre', 'Photography', 'Performance'
+      selectedProjectId: null
+    };
+
+    // --- RENDER FUNCTIONS ---
+    
+    const rootElement = document.getElementById('app-root');
+    const desktopNavElement = document.getElementById('desktop-nav');
+
+    function renderNavigation() {
+      const categories = ['Theatre', 'Photography', 'Performance'];
+      const aboutClass = state.view === 'about' ? 'text-gray-400' : 'text-white';
+
+      // --- DESKTOP NAV HTML ---
+      let desktopHTML = `
+        <button onclick="navigateTo('about')" class="hover:text-gray-300 transition-colors ${aboutClass}">
+          About Me // CV
+        </button>
+        <div class="w-px h-4 bg-white/20 mx-2"></div>
+      `;
+
+      categories.forEach(cat => {
+        const isActive = state.category === cat && state.view === 'home';
+        const className = isActive ? 'text-gray-400' : 'text-white';
+        desktopHTML += `
+          <button 
+            onclick="setCategory('${cat}')"
+            class="hover:text-gray-300 transition-colors ${className}"
+          >
+            ${cat}
+          </button>
+        `;
+      });
+      desktopNavElement.innerHTML = desktopHTML;
+      
+      // Mobile Nav is static in HTML, controlled via Toggle Function
+    }
+
+    function renderHome() {
+      const filteredProjects = state.category === 'All' 
+        ? PROJECTS 
+        : PROJECTS.filter(p => p.category === state.category);
+
+      // GRID LAYOUT: Enforce grid-cols-3 on ALL breakpoints as requested.
+      // Mobile: gap-x-4. Desktop: gap-x-12.
+      let gridHTML = `<div class="grid grid-cols-3 gap-x-4 md:gap-x-12 gap-y-12 md:gap-y-24">`;
+      
+      filteredProjects.forEach(project => {
+        gridHTML += `
+          <div onclick="openProject('${project.id}')" class="group cursor-pointer flex flex-col gap-2 md:gap-4">
+            <div class="aspect-[4/5] overflow-hidden w-full bg-neutral-900">
+              <img 
+                src="${project.coverImage}" 
+                alt="${project.title}" 
+                class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-105 opacity-90 group-hover:opacity-100"
+              />
+            </div>
+            <div class="flex flex-col items-start w-full">
+              <!-- Reduced text size on mobile to fit 3 columns -->
+              <h2 class="text-[10px] md:text-sm tracking-[0.15em] uppercase font-medium group-hover:text-gray-300 transition-colors w-full break-word-mobile">
+                ${project.title}
+              </h2>
+              <span class="text-[9px] md:text-[10px] tracking-widest text-gray-500 mt-1">
+                ${project.category} — ${project.year}
+              </span>
+            </div>
+          </div>
+        `;
+      });
+      
+      gridHTML += `</div>`;
+
+      return `<div class="pt-44 pb-20 px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in">${gridHTML}</div>`;
+    }
+
+    function renderProjectDetail() {
+      const project = PROJECTS.find(p => p.id === state.selectedProjectId);
+      if (!project) return renderHome();
+
+      // Team list HTML
+      const teamHTML = project.team.map(member => `<li>${member}</li>`).join('');
+      
+      // Gallery HTML
+      const galleryHTML = project.gallery.map((img, idx) => `
+        <div class="w-full md:w-[90%]">
+          <img 
+            src="${img}" 
+            alt="${project.title} detail ${idx + 1}" 
+            class="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700"
+          />
+        </div>
+      `).join('');
+
+      return `
+        <div class="pt-36 pb-20 flex flex-col md:flex-row px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in relative">
+          <!-- Left Column - Sticky Info -->
+          <div class="w-full md:w-1/3 md:sticky md:top-36 md:h-[calc(100vh-12rem)] flex flex-col pr-0 md:pr-12 overflow-y-auto no-scrollbar self-start">
+            <h1 class="text-2xl md:text-3xl font-light tracking-wide uppercase mb-8">
+              ${project.title}
+            </h1>
+            
+            <div class="space-y-8 text-sm font-light text-gray-300 leading-relaxed max-w-md">
+              <p>${project.description}</p>
+              
+              <div class="pt-8 border-t border-white/10">
+                <h3 class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Creative Team</h3>
+                <ul class="space-y-2">
+                  ${teamHTML}
+                </ul>
+              </div>
+
+              <div class="pt-4">
+                 <span class="text-[10px] uppercase tracking-widest text-gray-500">Year: ${project.year}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Column - Scrollable Images -->
+          <div class="w-full md:w-2/3 mt-12 md:mt-0 flex flex-col gap-12 md:gap-24 items-start">
+            <div class="w-full md:w-[90%]">
+                <img 
+                  src="${project.coverImage}" 
+                  alt="${project.title} cover" 
+                  class="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                />
+            </div>
+            ${galleryHTML}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderAbout() {
+      return `
+        <div class="pt-36 pb-20 flex flex-col md:flex-row px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in">
+          <!-- Left Column - Image -->
+          <div class="w-full md:w-1/2 md:pr-12 mb-12 md:mb-0">
+            <div class="w-full h-[50vh] md:h-[70vh] bg-neutral-900 overflow-hidden">
+              <img 
+                src="https://picsum.photos/800/1200?random=99" 
+                alt="Marcelo Callegaro Portrait" 
+                class="w-full h-full object-cover opacity-80"
+              />
+            </div>
+          </div>
+
+          <!-- Right Column - Text -->
+          <div class="w-full md:w-1/2 md:pl-12 flex flex-col justify-center">
+            <h1 class="text-2xl md:text-3xl font-light tracking-wide uppercase mb-12">
+              About me and CV.
+            </h1>
+            
+            <div class="space-y-6 text-sm md:text-base font-light text-gray-300 leading-loose max-w-xl">
+              <p>
+                Marcelo Lopes Callegaro is a multi-disciplinary artist working at the intersection of theatre, photography, and performance art. His work investigates the ephemeral nature of human memory and the structural void of modern urban environments.
+              </p>
+              <p>
+                With a background in classical dramatic arts and contemporary digital media, Marcelo creates immersive experiences that challenge the spectator's passive role. His directorial projects have been featured in festivals across South America and Europe.
+              </p>
+              <p>
+                As a photographer, he adopts a brutalist approach to composition, stripping subjects of their context to reveal raw, often uncomfortable textures. His performance work is characterized by physical endurance and the exploration of silence as a narrative tool.
+              </p>
+              
+              <div class="pt-12">
+                <h3 class="text-xs uppercase tracking-widest text-white mb-6">Selected Exhibitions & Direction</h3>
+                <ul class="space-y-4 text-xs tracking-wide text-gray-400">
+                  <li>2023 — "The Glass Menagerie", Sao Paulo Cultural Center</li>
+                  <li>2022 — "Urban Void" (Solo Exhibition), Galeria Vermelho</li>
+                  <li>2021 — "Macbeth: Rewired", Digital Arts Festival</li>
+                  <li>2019 — "Static Motion", Berlin Performance Week</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // --- NAVIGATION LOGIC ---
+
+    function updateView() {
+      window.scrollTo(0, 0);
+      renderNavigation();
+      
+      let html = '';
+      if (state.view === 'home') {
+        html = renderHome();
+      } else if (state.view === 'project') {
+        html = renderProjectDetail();
+      } else if (state.view === 'about') {
+        html = renderAbout();
+      }
+      
+      rootElement.innerHTML = html;
+    }
+
+    // Exposed Functions for HTML Click Handlers
+    
+    window.navigateTo = function(view) {
+      state.view = view;
+      if (view === 'home') state.category = 'All'; // Reset category when going home via logo
+      updateView();
+    };
+
+    window.setCategory = function(cat) {
+      state.category = cat;
+      state.view = 'home';
+      updateView();
+    };
+
+    window.openProject = function(id) {
+      state.selectedProjectId = id;
+      state.view = 'project';
+      updateView();
+    };
+
+    // Mobile Menu Functions
+    window.toggleMobileMenu = function() {
+      const overlay = document.getElementById('mobile-overlay');
+      const body = document.body;
+      
+      overlay.classList.toggle('open');
+      body.classList.toggle('menu-open');
+    };
+
+    window.closeMenuAndNavigate = function(view) {
+      window.toggleMobileMenu(); // Close
+      // Small delay for smooth transition (optional, but calling immediately is fine)
+      window.navigateTo(view);
+    };
+
+    window.closeMenuAndSetCategory = function(cat) {
+      window.toggleMobileMenu(); // Close
+      window.setCategory(cat);
+    };
+
+    // Initial Render
+    updateView();
+
+  </script>
+</body>
+</html>
