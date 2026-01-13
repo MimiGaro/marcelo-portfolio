@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -85,9 +85,9 @@
       <!-- Logo / Wordmark -->
       <div onclick="navigateTo('home')" class="cursor-pointer block relative z-50">
         <img 
-          src="MarceloLogo.png" 
+          src="https://placehold.co/300x80/000000/FFFFFF/png?text=Marcelo+Callegaro&font=playfair-display" 
           alt="Marcelo Callegaro" 
-          class="h-20 md:h-24 w-auto object-contain select-none relative top-1 md:top-0"
+          class="h-8 md:h-10 w-auto object-contain select-none"
         />
       </div>
 
@@ -115,9 +115,9 @@
       <!-- Logo in Overlay (Keeps position continuity) -->
       <div onclick="closeMenuAndNavigate('home')" class="cursor-pointer block">
         <img 
-          src="MarceloLogo.png" 
+          src="https://placehold.co/300x80/000000/FFFFFF/png?text=Marcelo+Callegaro&font=playfair-display" 
           alt="Marcelo Callegaro" 
-          class="h-20 w-auto object-contain select-none mt-2"
+          class="h-8 w-auto object-contain select-none"
         />
       </div>
       <!-- Close Button (X) -->
@@ -201,24 +201,24 @@
     // --- DATA ---
     const PROJECTS = [
       {
-        id: '1', title: 'THE PUBLIC (El Público)', category: 'Theatre', year: '2008',
+        id: '1', title: 'THE GLASS MENAGERIE', category: 'Theatre', year: '2023',
         description: 'An experimental adaptation of Tennessee Williams’ classic, exploring the fragility of memory through fragmented staging and digital projection mapping.',
         team: ['Director: Marcelo Callegaro', 'Lighting: Ana Silva', 'Set Design: Lucas M.', 'Sound: Studio Echo'],
-        coverImage: 'opublico02.jpg',
-        gallery: ['opublico01.jpg', 'https://picsum.photos/1200/800?random=12', 'https://picsum.photos/1200/1600?random=13']
+        coverImage: 'https://picsum.photos/800/1000?random=1',
+        gallery: ['https://picsum.photos/1200/1600?random=11', 'https://picsum.photos/1200/800?random=12', 'https://picsum.photos/1200/1600?random=13']
       },
       {
-        id: '2', title: 'DEAD AIR', category: 'Theatre', year: '2023',
+        id: '2', title: 'URBAN VOID', category: 'Photography', year: '2022',
         description: 'A photographic series documenting the silence of metropolitan spaces during the early hours of dawn, capturing the architectural skeleton of the city.',
         team: ['Photography: Marcelo Callegaro', 'Curator: Elena R.', 'Print: ArtLab'],
-        coverImage: 'deadair01.jpg',
-        gallery: ['deadair02.jpg', 'deadair03.jpg', 'deadair04.jpg', 'deadair05.jpg']
+        coverImage: 'https://picsum.photos/800/1000?random=2',
+        gallery: ['https://picsum.photos/1200/1600?random=21', 'https://picsum.photos/1200/1600?random=22', 'https://picsum.photos/1200/800?random=23']
       },
       {
-        id: '3', title: 'SWINE', category: 'Performance', year: '2024',
+        id: '3', title: 'ECHOES OF SILENCE', category: 'Performance', year: '2024',
         description: 'A duration performance piece investigating the relationship between physical endurance and auditory feedback loops.',
         team: ['Performer: Marcelo Callegaro', 'Sound Engineer: David K.', 'Costume: V. Apparel'],
-        coverImage: 'SwineGrid.jpg',
+        coverImage: 'https://picsum.photos/800/1000?random=3',
         gallery: ['https://picsum.photos/1200/1600?random=31', 'https://picsum.photos/1200/1600?random=32']
       },
       {
@@ -503,7 +503,7 @@
           <img 
             src="${img}" 
             alt="${project.title} detail ${idx + 1}" 
-            class="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700"
+            class="w-full h-auto object-cover"
           />
         </div>
       `).join('');
@@ -538,7 +538,7 @@
                 <img 
                   src="${project.coverImage}" 
                   alt="${project.title} cover" 
-                  class="w-full h-auto object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  class="w-full h-auto object-cover"
                 />
             </div>
             ${galleryHTML}
@@ -656,5 +656,4 @@
 
   </script>
 </body>
-
 </html>
