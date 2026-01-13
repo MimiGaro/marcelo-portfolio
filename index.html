@@ -83,12 +83,12 @@
   <header class="fixed top-0 left-0 w-full h-28 bg-black z-40 border-b border-white/10">
     <div class="w-full max-w-[1400px] mx-auto h-full px-8 md:px-16 lg:px-24 flex items-center justify-between text-white">
       <!-- Logo / Wordmark -->
-      <div onclick="goBack()" class="cursor-pointer block relative z-50">
+      <div onclick="navigateTo('home')" class="cursor-pointer block relative z-50">
         <img 
-  src="MarceloLogo.png"
-  alt="Marcelo Callegaro"
-  class="h-20 w-auto object-contain select-none"
-/>
+          src="https://placehold.co/300x80/000000/FFFFFF/png?text=Marcelo+Callegaro&font=playfair-display" 
+          alt="Marcelo Callegaro" 
+          class="h-8 md:h-10 w-auto object-contain select-none"
+        />
       </div>
 
       <!-- Desktop Navigation -->
@@ -117,8 +117,8 @@
         <img 
   src="MarceloLogo.png"
   alt="Marcelo Callegaro"
-  class="h-20 w-auto object-contain select-none"
-/>
+  class="h-24 md:h-28 w-auto object-contain select-none"
+        />
       </div>
       <!-- Close Button (X) -->
       <button class="text-white p-2 focus:outline-none" onclick="toggleMobileMenu()">
@@ -414,11 +414,10 @@
 
     // --- STATE ---
     let state = {
-  view: 'home', // 'home', 'project', 'about'
-  category: 'All', // 'All', 'Theatre', 'Photography', 'Performance'
-  selectedProjectId: null,
-  previous: { view: 'home', category: 'All' }
-};
+      view: 'home', // 'home', 'project', 'about'
+      category: 'All', // 'All', 'Theatre', 'Photography', 'Performance'
+      selectedProjectId: null
+    };
 
     // --- RENDER FUNCTIONS ---
     
@@ -487,8 +486,26 @@
       });
       
       gridHTML += `</div>`;
+      
+      let html = `<div class="pt-44 pb-20 px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in flex flex-col">
+          ${gridHTML}`;
 
-      return `<div class="pt-44 pb-20 px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in">${gridHTML}</div>`;
+      // Show back button only if we are in a specific category
+      if (state.category !== 'All') {
+        html += `
+          <div class="w-full flex justify-center mt-24">
+            <button 
+              onclick="resetCategory()"
+              class="text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors border-b border-transparent hover:border-white pb-1"
+            >
+              Back to Selected Works
+            </button>
+          </div>
+        `;
+      }
+      
+      html += `</div>`;
+      return html;
     }
 
     function renderProjectDetail() {
@@ -509,48 +526,57 @@
         </div>
       `).join('');
 
-      return `
-        <div class="pt-36 pb-20 flex flex-col md:flex-row px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in relative">
-          <!-- Left Column - Sticky Info -->
-          <div class="w-full md:w-1/3 md:sticky md:top-36 md:h-[calc(100vh-12rem)] flex flex-col pr-0 md:pr-12 overflow-y-auto no-scrollbar self-start">
-            <h1 class="text-2xl md:text-3xl font-light tracking-wide uppercase mb-8">
-              ${project.title}
-            </h1>
-            
-            <div class="space-y-8 text-sm font-light text-gray-300 leading-relaxed max-w-md">
-              <p>${project.description}</p>
-              
-              <div class="pt-8 border-t border-white/10">
-                <h3 class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Creative Team</h3>
-                <ul class="space-y-2">
-                  ${teamHTML}
-                </ul>
-              </div>
+      // Dynamic Back Label
+      const backLabel = state.category === 'All' 
+         ? "Back to Selected Works" 
+         : `Back to ${state.category}`;
 
-              <div class="pt-4">
-                 <span class="text-[10px] uppercase tracking-widest text-gray-500">Year: ${project.year}</span>
+      return `
+        <div class="pt-36 pb-20 px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in flex flex-col">
+          <div class="flex flex-col md:flex-row relative">
+            <!-- Left Column - Sticky Info -->
+            <div class="w-full md:w-1/3 md:sticky md:top-36 md:h-[calc(100vh-12rem)] flex flex-col pr-0 md:pr-12 overflow-y-auto no-scrollbar self-start">
+              <h1 class="text-2xl md:text-3xl font-light tracking-wide uppercase mb-8">
+                ${project.title}
+              </h1>
+              
+              <div class="space-y-8 text-sm font-light text-gray-300 leading-relaxed max-w-md">
+                <p>${project.description}</p>
+                
+                <div class="pt-8 border-t border-white/10">
+                  <h3 class="text-[10px] uppercase tracking-widest text-gray-500 mb-4">Creative Team</h3>
+                  <ul class="space-y-2">
+                    ${teamHTML}
+                  </ul>
+                </div>
+
+                <div class="pt-4">
+                   <span class="text-[10px] uppercase tracking-widest text-gray-500">Year: ${project.year}</span>
+                </div>
               </div>
+            </div>
+
+            <!-- Right Column - Scrollable Images -->
+            <div class="w-full md:w-2/3 mt-12 md:mt-0 flex flex-col gap-12 md:gap-24 items-start">
+              <div class="w-full md:w-[90%]">
+                  <img 
+                    src="${project.coverImage}" 
+                    alt="${project.title} cover" 
+                    class="w-full h-auto object-cover"
+                  />
+              </div>
+              ${galleryHTML}
             </div>
           </div>
 
-          <!-- Right Column - Scrollable Images -->
-          <div class="w-full md:w-2/3 mt-12 md:mt-0 flex flex-col gap-12 md:gap-24 items-start">
-            <div class="w-full md:w-[90%]">
-                <img 
-                  src="${project.coverImage}" 
-                  alt="${project.title} cover" 
-                  class="w-full h-auto object-cover"
-                />
-            </div>
-            ${galleryHTML}
-            <div class="w-full md:w-[90%] pt-6 md:pt-10 border-t border-white/10">
-  <button
-    onclick="setCategory('${state.category}')"
-    class="text-[10px] md:text-xs tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors"
-  >
-    BACK TO SELECTED WORKS
-  </button>
-</div>
+          <!-- Bottom Back Button -->
+          <div class="w-full flex justify-center mt-24 pt-12 border-t border-white/10">
+            <button 
+              onclick="goBackToGallery()"
+              class="text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors border-b border-transparent hover:border-white pb-1"
+            >
+              ${backLabel}
+            </button>
           </div>
         </div>
       `;
@@ -622,36 +648,40 @@
 
     // Exposed Functions for HTML Click Handlers
     
-    window.goBack = function() {
-  const prev = state.previous || { view: 'home', category: 'All' };
-
-  state.view = prev.view;
-  state.category = prev.category;
-  state.selectedProjectId = null;
-
-  updateView();
-};
-
+    // Main navigation (e.g. Logo click) - Resets category
     window.navigateTo = function(view) {
       state.view = view;
-      if (view === 'home') state.category = 'All'; // Reset category when going home via logo
+      if (view === 'home') state.category = 'All'; 
       updateView();
     };
 
+    // Category click - Sets category
     window.setCategory = function(cat) {
       state.category = cat;
       state.view = 'home';
       updateView();
     };
 
+    // Project click - Opens project
     window.openProject = function(id) {
-  // guarda de onde a pessoa veio
-  state.previous = { view: state.view, category: state.category };
+      state.selectedProjectId = id;
+      state.view = 'project';
+      updateView();
+    };
 
-  state.selectedProjectId = id;
-  state.view = 'project';
-  updateView();
-};
+    // Back from Project - Keeps category state
+    window.goBackToGallery = function() {
+      state.view = 'home';
+      // Do NOT reset state.category here
+      updateView();
+    };
+
+    // Back to Selected Works (from category view) - Resets category
+    window.resetCategory = function() {
+      state.category = 'All';
+      state.view = 'home';
+      updateView();
+    };
 
     // Mobile Menu Functions
     window.toggleMobileMenu = function() {
@@ -663,13 +693,12 @@
     };
 
     window.closeMenuAndNavigate = function(view) {
-      window.toggleMobileMenu(); // Close
-      // Small delay for smooth transition (optional, but calling immediately is fine)
+      window.toggleMobileMenu(); 
       window.navigateTo(view);
     };
 
     window.closeMenuAndSetCategory = function(cat) {
-      window.toggleMobileMenu(); // Close
+      window.toggleMobileMenu(); 
       window.setCategory(cat);
     };
 
@@ -678,12 +707,4 @@
 
   </script>
 </body>
-
 </html>
-
-
-
-
-
-
-
