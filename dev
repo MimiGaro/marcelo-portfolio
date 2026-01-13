@@ -83,7 +83,7 @@
   <header class="fixed top-0 left-0 w-full h-28 bg-black z-40 border-b border-white/10">
     <div class="w-full max-w-[1400px] mx-auto h-full px-8 md:px-16 lg:px-24 flex items-center justify-between text-white">
       <!-- Logo / Wordmark -->
-      <div onclick="navigateTo('home')" class="cursor-pointer block relative z-50">
+      <div onclick="goBack()" class="cursor-pointer block relative z-50">
         <img 
   src="MarceloLogo.png"
   alt="Marcelo Callegaro"
@@ -414,10 +414,11 @@
 
     // --- STATE ---
     let state = {
-      view: 'home', // 'home', 'project', 'about'
-      category: 'All', // 'All', 'Theatre', 'Photography', 'Performance'
-      selectedProjectId: null
-    };
+  view: 'home', // 'home', 'project', 'about'
+  category: 'All', // 'All', 'Theatre', 'Photography', 'Performance'
+  selectedProjectId: null,
+  previous: { view: 'home', category: 'All' }
+};
 
     // --- RENDER FUNCTIONS ---
     
@@ -621,6 +622,16 @@
 
     // Exposed Functions for HTML Click Handlers
     
+    window.goBack = function() {
+  const prev = state.previous || { view: 'home', category: 'All' };
+
+  state.view = prev.view;
+  state.category = prev.category;
+  state.selectedProjectId = null;
+
+  updateView();
+};
+
     window.navigateTo = function(view) {
       state.view = view;
       if (view === 'home') state.category = 'All'; // Reset category when going home via logo
@@ -634,10 +645,13 @@
     };
 
     window.openProject = function(id) {
-      state.selectedProjectId = id;
-      state.view = 'project';
-      updateView();
-    };
+  // guarda de onde a pessoa veio
+  state.previous = { view: state.view, category: state.category };
+
+  state.selectedProjectId = id;
+  state.view = 'project';
+  updateView();
+};
 
     // Mobile Menu Functions
     window.toggleMobileMenu = function() {
@@ -666,6 +680,7 @@
 </body>
 
 </html>
+
 
 
 
