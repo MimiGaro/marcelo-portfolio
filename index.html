@@ -84,11 +84,11 @@
     <div class="w-full max-w-[1400px] mx-auto h-full px-8 md:px-16 lg:px-24 flex items-center justify-between text-white">
       <!-- Logo / Wordmark -->
       <div onclick="navigateTo('home')" class="cursor-pointer block relative z-50">
-        <img 
+         <img 
   src="MarceloLogo.png"
   alt="Marcelo Callegaro"
-  class="h-24 md:h-28 w-auto object-contain select-none"
-        />
+  class="h-24 w-auto object-contain select-none"
+/>
       </div>
 
       <!-- Desktop Navigation -->
@@ -114,10 +114,10 @@
     <div class="w-full h-28 px-8 flex items-center justify-between border-b border-white/10 shrink-0">
       <!-- Logo in Overlay (Keeps position continuity) -->
       <div onclick="closeMenuAndNavigate('home')" class="cursor-pointer block">
-        <img 
+         <img 
   src="MarceloLogo.png"
   alt="Marcelo Callegaro"
-  class="h-24 md:h-28 w-auto object-contain select-none"
+  class="h-24 w-auto object-contain select-none"
 />
       </div>
       <!-- Close Button (X) -->
@@ -584,45 +584,57 @@
 
     function renderAbout() {
       return `
-        <div class="pt-36 pb-20 flex flex-col md:flex-row px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in">
-          <!-- Left Column - Image -->
-          <div class="w-full md:w-1/2 md:pr-12 mb-12 md:mb-0">
-            <div class="w-full h-[50vh] md:h-[70vh] bg-neutral-900 overflow-hidden">
-              <img 
-                src="https://picsum.photos/800/1200?random=99" 
-                alt="Marcelo Callegaro Portrait" 
-                class="w-full h-full object-cover opacity-80"
-              />
+        <div class="pt-36 pb-20 px-8 md:px-16 lg:px-24 max-w-[1400px] mx-auto fade-in flex flex-col">
+          <div class="flex flex-col md:flex-row">
+            <!-- Left Column - Image -->
+            <div class="w-full md:w-1/2 md:pr-12 mb-12 md:mb-0">
+              <div class="w-full h-[50vh] md:h-[70vh] bg-neutral-900 overflow-hidden">
+                <img 
+                  src="https://picsum.photos/800/1200?random=99" 
+                  alt="Marcelo Callegaro Portrait" 
+                  class="w-full h-full object-cover opacity-80"
+                />
+              </div>
+            </div>
+
+            <!-- Right Column - Text -->
+            <div class="w-full md:w-1/2 md:pl-12 flex flex-col justify-center">
+              <h1 class="text-2xl md:text-3xl font-light tracking-wide uppercase mb-12">
+                About me and CV.
+              </h1>
+              
+              <div class="space-y-6 text-sm md:text-base font-light text-gray-300 leading-loose max-w-xl">
+                <p>
+                  Marcelo Lopes Callegaro is a multi-disciplinary artist working at the intersection of theatre, photography, and performance art. His work investigates the ephemeral nature of human memory and the structural void of modern urban environments.
+                </p>
+                <p>
+                  With a background in classical dramatic arts and contemporary digital media, Marcelo creates immersive experiences that challenge the spectator's passive role. His directorial projects have been featured in festivals across South America and Europe.
+                </p>
+                <p>
+                  As a photographer, he adopts a brutalist approach to composition, stripping subjects of their context to reveal raw, often uncomfortable textures. His performance work is characterized by physical endurance and the exploration of silence as a narrative tool.
+                </p>
+                
+                <div class="pt-12">
+                  <h3 class="text-xs uppercase tracking-widest text-white mb-6">Selected Exhibitions & Direction</h3>
+                  <ul class="space-y-4 text-xs tracking-wide text-gray-400">
+                    <li>2023 — "The Glass Menagerie", Sao Paulo Cultural Center</li>
+                    <li>2022 — "Urban Void" (Solo Exhibition), Galeria Vermelho</li>
+                    <li>2021 — "Macbeth: Rewired", Digital Arts Festival</li>
+                    <li>2019 — "Static Motion", Berlin Performance Week</li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 
-          <!-- Right Column - Text -->
-          <div class="w-full md:w-1/2 md:pl-12 flex flex-col justify-center">
-            <h1 class="text-2xl md:text-3xl font-light tracking-wide uppercase mb-12">
-              About me and CV.
-            </h1>
-            
-            <div class="space-y-6 text-sm md:text-base font-light text-gray-300 leading-loose max-w-xl">
-              <p>
-                Marcelo Lopes Callegaro is a multi-disciplinary artist working at the intersection of theatre, photography, and performance art. His work investigates the ephemeral nature of human memory and the structural void of modern urban environments.
-              </p>
-              <p>
-                With a background in classical dramatic arts and contemporary digital media, Marcelo creates immersive experiences that challenge the spectator's passive role. His directorial projects have been featured in festivals across South America and Europe.
-              </p>
-              <p>
-                As a photographer, he adopts a brutalist approach to composition, stripping subjects of their context to reveal raw, often uncomfortable textures. His performance work is characterized by physical endurance and the exploration of silence as a narrative tool.
-              </p>
-              
-              <div class="pt-12">
-                <h3 class="text-xs uppercase tracking-widest text-white mb-6">Selected Exhibitions & Direction</h3>
-                <ul class="space-y-4 text-xs tracking-wide text-gray-400">
-                  <li>2023 — "The Glass Menagerie", Sao Paulo Cultural Center</li>
-                  <li>2022 — "Urban Void" (Solo Exhibition), Galeria Vermelho</li>
-                  <li>2021 — "Macbeth: Rewired", Digital Arts Festival</li>
-                  <li>2019 — "Static Motion", Berlin Performance Week</li>
-                </ul>
-              </div>
-            </div>
+          <!-- Bottom Back Button -->
+          <div class="w-full flex justify-center mt-24 pt-12 border-t border-white/10">
+            <button 
+              onclick="navigateTo('home')"
+              class="text-xs tracking-[0.2em] uppercase text-gray-500 hover:text-white transition-colors border-b border-transparent hover:border-white pb-1"
+            >
+              Back to Selected Works
+            </button>
           </div>
         </div>
       `;
@@ -708,4 +720,3 @@
   </script>
 </body>
 </html>
-
