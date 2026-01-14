@@ -220,7 +220,18 @@ Premiered in São Paulo and presented internationally, including acclaimed stagi
       {
         id: '2', title: 'URBAN VOID', category: 'Photography', year: '2022',
         description: 'A photographic series documenting the silence of metropolitan spaces during the early hours of dawn, capturing the architectural skeleton of the city.',
-        team: ['Photography: Marcelo Callegaro', 'Curator: Elena R.', 'Print: ArtLab'],
+        team: [
+  'Poems by: Federico García Lorca',
+  'Dramaturgy & Translations by: Beto Firmino & Osvaldo Gabrieli',
+  'Directed by: Osvaldo Gabrieli',
+  'Musical Direction & Original Music by: Beto Firmino',
+  'Costume Design: Osvaldo Gabrieli & Sonia Ushiyama',
+  'Lighting Design: Tom Ribeiro',
+  'Sound Design: Alonso Góes',
+  'Performers: Bruno Caetano, Fernanda Bastos, Marcelo Callegaro, Mariano Mattos Martins, Osvaldo Gabrieli',
+  'Musicians: Adriano Salhab, Beto Firmino, Guilherme Calzavara'
+],
+
         coverImage: 'https://picsum.photos/800/1000?random=2',
         gallery: ['https://picsum.photos/1200/1600?random=21', 'https://picsum.photos/1200/1600?random=22', 'https://picsum.photos/1200/800?random=23']
       },
@@ -523,8 +534,11 @@ Premiered in São Paulo and presented internationally, including acclaimed stagi
       if (!project) return renderHome();
 
       // Team list HTML
-      const teamHTML = project.team.map(member => `<li>${member}</li>`).join('');
-      
+      const teamHTML = project.team.map(member => {
+  const [role, names] = member.split(':');
+  return `<li><strong>${role}:</strong>${names ? ' ' + names : ''}</li>`;
+}).join('');
+
       // Gallery HTML
       const galleryHTML = project.gallery.map((img, idx) => `
         <div class="w-full md:w-[90%]">
@@ -730,6 +744,7 @@ Premiered in São Paulo and presented internationally, including acclaimed stagi
   </script>
 </body>
 </html>
+
 
 
 
