@@ -670,15 +670,19 @@ const creditsHTML = creditsList.map(item => {
 }).join('');
 
       // Gallery HTML
-      const galleryHTML = project.gallery.map((img, idx) => `
-        <div class="w-full md:w-[90%]">
-          <img 
-            src="${img}" 
-            alt="${project.title} detail ${idx + 1}" 
-            class="w-full h-auto object-cover"
-          />
-        </div>
-      `).join('');
+const galleryHTML = project.gallery.map((img, idx) => {
+  const isStarfish5 = img.toLowerCase().match(/starfish\s*5/);
+
+  return `
+    <div class="${isStarfish5 ? 'w-full md:w-[60%]' : 'w-full md:w-[90%]'}">
+      <img 
+        src="${img}" 
+        alt="${project.title} detail ${idx + 1}" 
+        class="w-full h-auto object-cover"
+      />
+    </div>
+  `;
+}).join('');
 
       // Dynamic Back Label
       const backLabel = state.category === 'All' 
@@ -874,6 +878,7 @@ const creditsHTML = creditsList.map(item => {
   </script>
 </body>
 </html>
+
 
 
 
